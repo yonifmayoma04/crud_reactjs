@@ -5,6 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import { useNavigate ,useParams } from 'react-router-dom';
 import List from './List';
+import Swal from 'sweetalert2';
 
 const Update = () => {
     const {id}=useParams()
@@ -12,7 +13,7 @@ const Update = () => {
 
     const [userField, setUserField] = useState({
     name: "",
-    jurusan: "",
+    job: "",
     email: "",
     phone: "",
 
@@ -46,6 +47,13 @@ const Update = () => {
         try {
             await axios.put("http://127.0.0.1:8000/api/students/update/"+id, userField);
             navigate('/list/:id');  
+            Swal.fire({
+              title: 'Success',
+              text: 'Data Berhasil Ditambahkan',
+              icon: 'success',
+              confirmButtonText: 'Ok',
+              timer: 3000
+            });
         } catch (err) {
             console.log("Something Wrong");
         }
@@ -102,11 +110,11 @@ const Update = () => {
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Job</Form.Label>
               <Form.Control
-                type="jurusan"
+                type="job"
                 // id='jurusan'
-                placeholder="Enter Jurusan"
-                name='jurusan'
-                value={userField.jurusan}
+                placeholder="Enter Job"
+                name='job'
+                value={userField.job}
                 onChange={e => changeUserFieldHandler(e)} required
                 
               />

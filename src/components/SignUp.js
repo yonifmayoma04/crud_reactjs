@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Form from "./Form";
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 
 const SignUp = () => {
@@ -63,6 +64,13 @@ const SignUp = () => {
       const response = await axios.post('http://127.0.0.1:8000/api/auth/register', values);
       console.log('User registered:', response.data);
       window.location.href = "http://localhost:3000/signin/:id";
+      Swal.fire({
+        title: 'Signup Success',
+        text: 'Please Login to Continue!',
+        icon: 'success',
+        confirmButtonText: 'Ok',
+        timer: 3000
+      });
       // You can perform additional actions after successful registration, like redirecting or showing a success message.
   } catch (error) {
       console.error('Registration error:', error.response.data);
@@ -73,6 +81,17 @@ const SignUp = () => {
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
+
+  // const handleRegist = () => {
+  //   if (this.state.username === 'user' && this.state.password === 'password') {
+  //     Swal.fire({
+  //       title: 'Login Sukses',
+  //       text: 'Selamat datang!',
+  //       icon: 'success',
+  //       confirmButtonText: 'Ok'
+  //     });
+  //   }
+  // }
 
   return (
     <div className="app"  >
@@ -86,12 +105,11 @@ const SignUp = () => {
             onChange={onChange}
           />
         ))}
-        <button className="mb-3">Sign Up</button>
+        <button className="mb-3" >Sign Up</button>
         <div className="fluid-start">
         <p style={{ fontSize: '12px' }}>
       Have an account yet? <a href="http://localhost:3000/signin/:id">Sign In</a> 
     </p>
-        {/* <button>Login</button> */}
         </div>
         
       </form>

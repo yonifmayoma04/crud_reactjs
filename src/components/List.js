@@ -1,16 +1,50 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import axios from "axios";
 import Add from "./Add";
-// import Update from "./Update";
+
+import Swal from 'sweetalert2';
 import "./React.css";
+import 'bootstrap/dist/js/bootstrap'
 
 const List = () => {
   const [studentsData, setUSerData] = useState([]);
   useEffect(() => {
     fetchData();
   }, []);
+
+  // constructor(props); {
+  //   super(props);
+  //   this.state = {
+  //     dropdownOptions: [], // Store the fetched dropdown options
+  //     selectedOption: '', // Store the selected option
+  //   };
+  // }
+
+  // componentDidMount(); {
+  //   // Make an API request to fetch dropdown options when the component mounts
+  //   fetch('/api/dropdown-options')
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       // Assuming the API response is an array of options
+  //       this.setState({ dropdownOptions: data });
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error fetching dropdown options:', error);
+  //     });
+  // }
+
+  // handleDropdownChange = (event) => {
+  //   // Update the selected option in the state when the dropdown value changes
+  //   this.setState({ selectedOption: event.target.value });
+  // };
+
+  // render(); {
+  //   const { dropdownOptions, selectedOption } = this.state;
+  
+
+  
 
   console.log("user", studentsData);
 
@@ -51,6 +85,25 @@ const List = () => {
     });
   };
 
+  const navigate = useNavigate();
+
+  const clickToBackHandler = () => {
+    Swal.fire({
+      title: 'Konfirmasi Logout',
+      text: 'Yakin ingin logout?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Ya',
+      cancelButtonText: 'Tidak'
+    }).then((result) => {
+      if (result.isConfirmed) {
+    navigate("/");
+  }
+});
+  };
+
+
+
   return (
     <div className="container">
       <h3 class="mb-3">User Details</h3>
@@ -64,9 +117,10 @@ const List = () => {
           <tr>
             <th>No.</th>
             <th>Name</th>
-            <th>Jurusan</th>
+            <th>Job</th>
             <th>Email</th>
             <th>Phone</th>
+            <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -76,9 +130,30 @@ const List = () => {
               <tr key={i}>
                 <td>{i + 1}</td>
                 <td className="align-left">{students.name} </td>
-                <td className="align-left">{students.jurusan} </td>
+
+                {/* <div>
+        <h1>Dropdown Example</h1>
+        <label htmlFor="dropdown">Select an option:</label>
+        <select
+          id="dropdown"
+          value={selectedOption}
+          onChange={this.handleDropdownChange}
+        >
+          <option value="">Select an option</option>
+          {dropdownOptions.map((option) => (
+            <option key={option.id} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+        <p>Selected Option: {selectedOption}</p>
+      </div> */}
+
+                <td className="align-left">{students.job} </td>
+                
                 <td className="align-left">{students.email} </td>
                 <td className="align-left">{students.phone} </td>
+                <td>{students.status} </td>
                 <td>
                   <NavLink
                     to={`/view/${students.id}`}
@@ -110,6 +185,11 @@ const List = () => {
           })}
         </tbody>
       </table>
+      <div xs={12} mb={4} className="float-end">
+        <button className="btn btn-primary" onClick={clickToBackHandler}>
+          Logout
+        </button>
+      </div>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import Form from "./Form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 Modal.setAppElement("#root");
 
@@ -56,10 +57,15 @@ const SignIn = () => {
       );
       console.log("User registered:", response.data);
       window.location.href = "http://localhost:3000/list/:id";
-      // You can perform additional actions after successful registration, like redirecting or showing a success message.
+      Swal.fire({
+        title: 'Signin Success',
+        text: 'Welcome!',
+        icon: 'success',
+        confirmButtonText: 'Ok',
+        timer: 3000
+      });
     } catch (error) {
       console.error("Registration error:", error.response.data);
-      // You can handle the registration error here, such as showing an error message to the user.
     }
   };
 
@@ -72,9 +78,8 @@ const SignIn = () => {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    // Simulate a failed login attempt
     setShowErrorModal(true);
-    navigate("/list/:id");
+    navigate("/signup/:id");
   };
 
   const handleCloseErrorModal = () => {
@@ -97,7 +102,7 @@ const SignIn = () => {
         <div className="fluid-start">
           <p style={{ fontSize: "12px" }}>
             Don't have an account yet?
-            <a onClick={handleLogin}>Create an account</a>
+            <a onClick={handleLogin}> Create an account</a>
           </p>
           <Modal
             isOpen={showErrorModal}

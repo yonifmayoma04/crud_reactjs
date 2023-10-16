@@ -28,7 +28,7 @@ const View = () => {
     }
  
     const clickToBackHandler=()=>{
-        navigate('/');
+        navigate('/list/:id');
     }
  
     return <div>
@@ -41,7 +41,7 @@ const View = () => {
                         <thead>
                             <tr>
                                 <th>Full Name</th>
-                                <th>Jurusan</th>
+                                <th>Job</th>
                                 <th>Email</th>
                                 <th>Phone</th>
                                
@@ -51,7 +51,7 @@ const View = () => {
                             <tr>
                                 <td>{students.id}</td>
                                 <td>{students.name}</td>
-                                <td>{students.jurusan}</td>
+                                <td>{students.job}</td>
                                 <td>{students.email}</td>
                                 <td>{students.phone}</td>
                             </tr>
