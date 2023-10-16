@@ -35,7 +35,7 @@ const App = () => {
         <Routes>
           {/* <Route exact path="/" element={<FormInput />} /> */}
           {/* <Route exact path="/" element={<GetStarted />} /> */}
-          <Route exact path="/:id" element={<SignIn />} />
+          <Route exact path="g/:id" element={<SignIn />} />
           <Route exact path="/signup/:id" element={<SignUp />} />
           <Route exact path="/form/:id" element={<Form />} />
           <Route exact path="/list/:id" element={<List />} />
